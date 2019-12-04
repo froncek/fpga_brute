@@ -1,8 +1,13 @@
 module top(
     input wire clk,
     input wire ftdi_rx,
-    input wire board1_rx
+    output wire ftdi_tx,
+    input wire board1_rx,
+    output wire board1_tx,
+    output wire board1_rst
 );
+
+assign ftdi_tx = board1_tx;
 
 wire overflow_d1;
 wire overflow_d2;
@@ -61,6 +66,12 @@ detect invalid_detector(
     .valid(invalid_pin_signal)
 );
 
+resetter rsti (
+    .clk(clk),
+    .rst_in(invalid_pin_signal),
+    .rst_out(board1_rst)
+);
+
 wire [31:0] tx4_out;
 assign tx4_out[7:0] = d1_bits;
 assign tx4_out[15:8] = d2_bits;
@@ -70,7 +81,8 @@ assign tx4_out[31:24] = d4_bits;
 tx4 tx4i (
     .clk(clk),
     .en(pin_prompt_ready),
-    .data_in(tx4_out)
+    .data_in(tx4_out),
+    .dout(board1_tx)
 );
 
 
