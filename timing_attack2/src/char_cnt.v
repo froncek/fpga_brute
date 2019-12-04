@@ -11,7 +11,7 @@ assign valid = num_of_chars == 5'd16;
 
 uart_rx uart_rx_i (
     .clk(clk),
-    .rst(rst),
+    .rst(1'b0),
     .din(din),
     .valid(received_data)   
 );
