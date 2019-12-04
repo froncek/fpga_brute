@@ -5,9 +5,9 @@ module char_cnt(
     output wire valid
 );
 
-reg num_of_chars = 5'b0; 
+reg [31:0] num_of_chars = 32'b0; 
 wire received_data;
-assign valid = num_of_chars == 5'd16;
+assign valid = num_of_chars == 32'd16;
 
 uart_rx uart_rx_i (
     .clk(clk),
@@ -20,9 +20,9 @@ always @(posedge clk) begin
     num_of_chars <= num_of_chars;
 
     if (rst) begin
-        num_of_chars <= 16'd0;
+        num_of_chars <= 32'd0;
     end else if(received_data) begin
-        num_of_chars <= num_of_chars + 16'd1;
+        num_of_chars <= num_of_chars + 32'd1;
     end
 end
 
