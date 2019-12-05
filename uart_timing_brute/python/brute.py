@@ -5,6 +5,7 @@
 from serial import Serial
 from time import sleep
 
+
 # Open serial device. Set a timeout so reads return after 2 seconds
 with Serial('/dev/ttyUSB.arty.UART', timeout=0.05) as dev:
     dev.baudrate = 115200
