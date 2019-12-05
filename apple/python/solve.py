@@ -201,8 +201,10 @@ def main():
 
     offset = 0
     for size in sizes:
-        chunk = communication[offset:offset+size].hex()
-        print(f"len {len(chunk):03d} - {chunk}"  )
+        chunk = communication[offset:offset+size]
+        chunk_hex = chunk.hex()
+        ascii_str = "".join(map(chr,filter(lambda x: x > 0x29 and x < 0x81,chunk)))
+        print(f"len {len(chunk):03d} - {chunk_hex} - {ascii_str}"  )
         offset += size
 
 if __name__ == "__main__":
