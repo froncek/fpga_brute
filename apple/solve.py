@@ -201,7 +201,8 @@ def main():
 
     offset = 0
     for size in sizes:
-        print(communication[offset:offset+size].hex())
+        chunk = communication[offset:offset+size].hex()
+        print(f"len {len(chunk):03d} - {chunk}"  )
         offset += size
 
 if __name__ == "__main__":
